@@ -1,0 +1,10 @@
+// create a database
+use pos;
+
+// insert data - document automatically created
+// bulk record (siripala, siripala@123)
+db.login.insert({"user_id":"u01","username":"0AD28F73D534E4CF3941A477375D1D75", "password":"E3A6B8B322FD02D0A5172256ECED4301"})
+
+// to check inserted data
+db.login.find({})
+
