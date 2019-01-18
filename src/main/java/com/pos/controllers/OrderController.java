@@ -3,6 +3,7 @@ package com.pos.controllers;
 import com.pos.models.Order;
 import com.pos.services.OrderService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,7 @@ public class OrderController {
 
     @RequestMapping(value = "/orderlist/{order_id}", method = RequestMethod.GET)
     @ResponseBody
-    public Order showSpecificOrders(){
-        return OrderService.getOrderService().getSpecificOrder("o2");
+    public Order showSpecificOrders(@PathVariable String order_id){
+        return OrderService.getOrderService().getSpecificOrder(order_id);
     }
 }
