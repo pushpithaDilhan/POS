@@ -25,6 +25,15 @@ public class DataRepository {
         return orderList;
     }
 
+    public static Order getOrder(String order_id){
+        for (Order order: getOrderList()) {
+            if(order.getOrder_id().equals(order_id)){
+                return order;
+            }
+        }
+        return null;
+    }
+
     public static ArrayList<User> getUserList(){
         if(userList == null){
             seedusers();

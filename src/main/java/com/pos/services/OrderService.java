@@ -10,18 +10,19 @@ public class OrderService {
 
     private static OrderService orderService;
 
-    static{
+    public static OrderService getOrderService(){
         if (orderService == null){
             orderService = new OrderService();
         };
-    }
-
-    public static OrderService getOrderService(){
         return orderService;
     }
 
     public ArrayList<Order> getOrderList(){
         return DataRepository.getOrderList();
+    }
+
+    public Order getSpecificOrder(String order_id){
+        return DataRepository.getDataRepository().getOrder(order_id);
     }
 
     public void addOrder(){
