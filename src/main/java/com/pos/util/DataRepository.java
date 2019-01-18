@@ -34,7 +34,7 @@ public class DataRepository {
 
     public static void seedRepository(){
         orderList = new ArrayList<Order>();
-        Order o1  = new Order();
+        Order o1  = new Order("o1");
         o1.addItem(new Item("i01", "Dhal","160.00"));
         o1.addItem(new Item("i02", "Rice","105.00"));
         o1.addItem(new Item("i03", "Soda","40.00"));
@@ -42,7 +42,7 @@ public class DataRepository {
         o1.addItem(new Item("i05", "Carrot","75.00"));
         orderList.add(o1);
 
-        Order o2  = new Order();
+        Order o2  = new Order("o2");
         o2.addItem(new Item("i06", "Soya","45.00"));
         o2.addItem(new Item("i07", "Chicken","750.00"));
         o2.addItem(new Item("i08", "Butter","190.00"));
@@ -50,7 +50,7 @@ public class DataRepository {
         o2.addItem(new Item("i10", "Beer","120.00"));
         orderList.add(o2);
 
-        Order o3  = new Order();
+        Order o3  = new Order("o3");
         o3.addItem(new Item("i11", "Tea leaves","160.00"));
         o3.addItem(new Item("i12", "Coffee","105.00"));
         o3.addItem(new Item("i13", "Rice","40.00"));
