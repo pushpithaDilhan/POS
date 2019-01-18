@@ -10,10 +10,12 @@ public class DataRepository {
     private static ArrayList<Order> orderList;
     private static ArrayList<User> userList;
     private static DataRepository dataRepository;
+    private static int lastOrder;
 
     public static DataRepository getDataRepository(){
         if(dataRepository == null){
             dataRepository = new DataRepository();
+            seedRepository();
         }
         return dataRepository;
     }
@@ -34,6 +36,14 @@ public class DataRepository {
         return null;
     }
 
+    public static void deleteOrder(String order_id){
+        for(int i = 0; i< orderList.size(); i++){
+            if(orderList.get(i).getOrder_id().equals(order_id)){
+                orderList.remove(i);
+            }
+        }
+    }
+
     public static ArrayList<User> getUserList(){
         if(userList == null){
             seedusers();
@@ -50,6 +60,7 @@ public class DataRepository {
         o1.addItem(new Item("i04", "Beans","80.00"));
         o1.addItem(new Item("i05", "Carrot","75.00"));
         orderList.add(o1);
+        lastOrder++;
 
         Order o2  = new Order("o2");
         o2.addItem(new Item("i06", "Soya","45.00"));
@@ -58,6 +69,7 @@ public class DataRepository {
         o2.addItem(new Item("i09", "Soda","40.00"));
         o2.addItem(new Item("i10", "Beer","120.00"));
         orderList.add(o2);
+        lastOrder++;
 
         Order o3  = new Order("o3");
         o3.addItem(new Item("i11", "Tea leaves","160.00"));
@@ -65,10 +77,19 @@ public class DataRepository {
         o3.addItem(new Item("i13", "Rice","40.00"));
         o3.addItem(new Item("i14", "Potato","80.00"));
         orderList.add(o3);
+        lastOrder++;
     }
 
     public static void seedusers(){
         userList = new ArrayList<User>();
         userList.add(new User("u01", "0AD28F73D534E4CF3941A477375D1D75", "E3A6B8B322FD02D0A5172256ECED4301"));
+    }
+
+    public static int getLastOrder(){
+        return lastOrder;
+    }
+
+    public static void addOrder(Order order){
+        getOrderList().add(order);
     }
 }

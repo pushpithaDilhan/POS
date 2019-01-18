@@ -25,12 +25,16 @@ public class OrderService {
         return DataRepository.getDataRepository().getOrder(order_id);
     }
 
-    public void addOrder(){
-        Document doc = new Document("name", "MongoDB")
-                .append("type", "database")
-                .append("count", 1)
-                .append("versions", Arrays.asList("v3.2", "v3.0", "v2.6"))
-                .append("info", new Document("x", 203).append("y", 102));
+    public void deleteSpecificOrder(String order_id){
+        DataRepository.getDataRepository().deleteOrder(order_id);
+    }
+
+    public void addOrder(Order order){
+        DataRepository.getDataRepository().addOrder(order);
+    }
+
+    public int getLastOrderID(){
+        return DataRepository.getDataRepository().getLastOrder();
     }
 
 }
