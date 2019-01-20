@@ -2,9 +2,7 @@ package com.pos.services;
 
 import com.pos.models.Order;
 import com.pos.util.DataRepository;
-import org.bson.Document;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class OrderService {
 
@@ -35,6 +33,10 @@ public class OrderService {
 
     public void addOrder(Order order){
         DataRepository.getDataRepository().addOrder(order);
+    }
+
+    public void addItemtoOrder(String order_id, String item_name, String item_price){
+        DataRepository.getDataRepository().addItemtoOrder(order_id, item_name, item_price);
     }
 
     public int getLastOrderID(){

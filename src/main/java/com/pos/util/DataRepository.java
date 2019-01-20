@@ -4,11 +4,13 @@ import com.pos.models.Item;
 import com.pos.models.Order;
 import com.pos.models.User;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DataRepository {
 
     private static ArrayList<Order> orderList;
     private static ArrayList<User> userList;
+    private static HashMap<String, Integer> lastItem;
     private static DataRepository dataRepository;
     private static int lastOrder;
 
@@ -65,30 +67,34 @@ public class DataRepository {
 
     public static void seedRepository(){
         orderList = new ArrayList<Order>();
-        Order o1  = new Order("o1");
-        o1.addItem(new Item("i01", "Dhal","160.00"));
-        o1.addItem(new Item("i02", "Rice","105.00"));
-        o1.addItem(new Item("i03", "Soda","40.00"));
-        o1.addItem(new Item("i04", "Beans","80.00"));
-        o1.addItem(new Item("i05", "Carrot","75.00"));
+        lastItem = new HashMap<String, Integer>();
+        Order o1  = new Order("1");
+        o1.addItem(new Item("1", "Dhal","160.00"));
+        o1.addItem(new Item("2", "Rice","105.00"));
+        o1.addItem(new Item("3", "Soda","40.00"));
+        o1.addItem(new Item("4", "Beans","80.00"));
+        o1.addItem(new Item("5", "Carrot","75.00"));
         orderList.add(o1);
+        lastItem.put("1", 5);
         lastOrder++;
 
-        Order o2  = new Order("o2");
-        o2.addItem(new Item("i06", "Soya","45.00"));
-        o2.addItem(new Item("i07", "Chicken","750.00"));
-        o2.addItem(new Item("i08", "Butter","190.00"));
-        o2.addItem(new Item("i09", "Soda","40.00"));
-        o2.addItem(new Item("i10", "Beer","120.00"));
+        Order o2  = new Order("2");
+        o2.addItem(new Item("1", "Soya","45.00"));
+        o2.addItem(new Item("2", "Chicken","750.00"));
+        o2.addItem(new Item("3", "Butter","190.00"));
+        o2.addItem(new Item("4", "Soda","40.00"));
+        o2.addItem(new Item("5", "Beer","120.00"));
         orderList.add(o2);
+        lastItem.put("2", 5);
         lastOrder++;
 
-        Order o3  = new Order("o3");
-        o3.addItem(new Item("i11", "Tea leaves","160.00"));
-        o3.addItem(new Item("i12", "Coffee","105.00"));
-        o3.addItem(new Item("i13", "Rice","40.00"));
-        o3.addItem(new Item("i14", "Potato","80.00"));
+        Order o3  = new Order("3");
+        o3.addItem(new Item("1", "Tea leaves","160.00"));
+        o3.addItem(new Item("2", "Coffee","105.00"));
+        o3.addItem(new Item("3", "Rice","40.00"));
+        o3.addItem(new Item("4", "Potato","80.00"));
         orderList.add(o3);
+        lastItem.put("3", 4);
         lastOrder++;
     }
 
@@ -103,5 +109,13 @@ public class DataRepository {
 
     public static void addOrder(Order order){
         getOrderList().add(order);
+    }
+
+    public static void addItemtoOrder(String order_id, String item_name, String item_price){
+        for(int i = 0; i < getOrderList().size(); i++){
+            if(getOrderList().get(i).getOrder_id().equals(order_id)){
+                getOrderList().get(i).addItem(new Item(Integer.toString(lastItem.get(order_id) + 1) ,item_name, item_price));
+            }
+        }
     }
 }

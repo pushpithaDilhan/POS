@@ -30,8 +30,15 @@ public class OrderController {
     @RequestMapping(value = "/orderlist", method = RequestMethod.POST) // return 200 after post
     @ResponseStatus(value = HttpStatus.OK)
     public void addOrder(){
-        String orderID = "o" + (OrderService.getOrderService().getLastOrderID() + 1);
+        String orderID = Integer.toString(OrderService.getOrderService().getLastOrderID() + 1);
         OrderService.getOrderService().addOrder(new Order(orderID));
+    }
+
+    // Add item to a list
+    @RequestMapping(value = "/orderlist/{order_id}", method = RequestMethod.POST) // return 200 after post
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addItemtoOrder(@PathVariable String order_id, @RequestParam("item_name") String item_name, @RequestParam("item_price") String item_price){
+        OrderService.getOrderService().addItemtoOrder(order_id, item_name, item_price);
     }
 
     // Delete order
