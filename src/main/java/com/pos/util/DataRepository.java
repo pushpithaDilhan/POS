@@ -44,6 +44,18 @@ public class DataRepository {
         }
     }
 
+    public static void deleteItem(String order_id, String item_id){
+        for(int i = 0; i< orderList.size(); i++){
+            if(orderList.get(i).getOrder_id().equals(order_id)){
+                for(int j = 0; j< orderList.get(i).getItemlist().size(); j++){
+                    if(orderList.get(i).getItemlist().get(j).getItem_id().equals(item_id)){
+                        orderList.get(i).getItemlist().remove(j);
+                    }
+                }
+            }
+        }
+    }
+
     public static ArrayList<User> getUserList(){
         if(userList == null){
             seedusers();

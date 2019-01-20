@@ -29,6 +29,10 @@ public class OrderService {
         DataRepository.getDataRepository().deleteOrder(order_id);
     }
 
+    public void deleteSpecificItem(String order_id, String item_id){
+        DataRepository.getDataRepository().deleteItem(order_id, item_id);
+    }
+
     public void addOrder(Order order){
         DataRepository.getDataRepository().addOrder(order);
     }
