@@ -29,6 +29,20 @@ public class DataRepository {
         return orderList;
     }
 
+    // Create Order and add it updating last itemof that order
+    public static void addOrder(Order order, int last_item){
+        if(orderList == null){
+            orderList = new ArrayList<Order>();
+        }
+        if(lastItem == null){
+            lastItem = new HashMap<String, Integer>();
+        }
+        lastItem.put(order.getOrder_id(), last_item);
+        lastOrder = Integer.parseInt(order.getOrder_id());
+        getOrderList().add(order);
+    }
+
+    // Read order using order_id
     public static Order getOrder(String order_id){
         for (Order order: getOrderList()) {
             if(order.getOrder_id().equals(order_id)){
@@ -38,6 +52,7 @@ public class DataRepository {
         return null;
     }
 
+    // Delete order
     public static void deleteOrder(String order_id){
         for(int i = 0; i< orderList.size(); i++){
             if(orderList.get(i).getOrder_id().equals(order_id)){
@@ -46,6 +61,7 @@ public class DataRepository {
         }
     }
 
+    // Delete item from an order
     public static void deleteItem(String order_id, String item_id){
         for(int i = 0; i< orderList.size(); i++){
             if(orderList.get(i).getOrder_id().equals(order_id)){
@@ -58,59 +74,7 @@ public class DataRepository {
         }
     }
 
-    public static ArrayList<User> getUserList(){
-        if(userList == null){
-            seedusers();
-        }
-        return userList;
-    }
-
-    public static void seedRepository(){
-        orderList = new ArrayList<Order>();
-        lastItem = new HashMap<String, Integer>();
-        Order o1  = new Order("1");
-        o1.addItem(new Item("1", "Dhal","160.00"));
-        o1.addItem(new Item("2", "Rice","105.00"));
-        o1.addItem(new Item("3", "Soda","40.00"));
-        o1.addItem(new Item("4", "Beans","80.00"));
-        o1.addItem(new Item("5", "Carrot","75.00"));
-        orderList.add(o1);
-        lastItem.put("1", 5);
-        lastOrder++;
-
-        Order o2  = new Order("2");
-        o2.addItem(new Item("1", "Soya","45.00"));
-        o2.addItem(new Item("2", "Chicken","750.00"));
-        o2.addItem(new Item("3", "Butter","190.00"));
-        o2.addItem(new Item("4", "Soda","40.00"));
-        o2.addItem(new Item("5", "Beer","120.00"));
-        orderList.add(o2);
-        lastItem.put("2", 5);
-        lastOrder++;
-
-        Order o3  = new Order("3");
-        o3.addItem(new Item("1", "Tea leaves","160.00"));
-        o3.addItem(new Item("2", "Coffee","105.00"));
-        o3.addItem(new Item("3", "Rice","40.00"));
-        o3.addItem(new Item("4", "Potato","80.00"));
-        orderList.add(o3);
-        lastItem.put("3", 4);
-        lastOrder++;
-    }
-
-    public static void seedusers(){
-        userList = new ArrayList<User>();
-        userList.add(new User("u01", "0AD28F73D534E4CF3941A477375D1D75", "E3A6B8B322FD02D0A5172256ECED4301"));
-    }
-
-    public static int getLastOrder(){
-        return lastOrder;
-    }
-
-    public static void addOrder(Order order){
-        getOrderList().add(order);
-    }
-
+    // Add item to an order
     public static void addItemtoOrder(String order_id, String item_name, String item_price){
         for(int i = 0; i < getOrderList().size(); i++){
             if(getOrderList().get(i).getOrder_id().equals(order_id)){
@@ -118,4 +82,57 @@ public class DataRepository {
             }
         }
     }
+
+    public static void seedRepository(){
+        Order o1  = new Order("1");
+        o1.addItem(new Item("1", "Dhal","160.00"));
+        o1.addItem(new Item("2", "Rice","105.00"));
+        o1.addItem(new Item("3", "Soda","40.00"));
+        o1.addItem(new Item("4", "Beans","80.00"));
+        o1.addItem(new Item("5", "Carrot","75.00"));
+        addOrder(o1, 5);
+
+        Order o2  = new Order("2");
+        o2.addItem(new Item("1", "Soya","45.00"));
+        o2.addItem(new Item("2", "Chicken","750.00"));
+        o2.addItem(new Item("3", "Butter","190.00"));
+        o2.addItem(new Item("4", "Soda","40.00"));
+        o2.addItem(new Item("5", "Beer","120.00"));
+        addOrder(o2, 5);
+
+        Order o3  = new Order("3");
+        o3.addItem(new Item("1", "Tea leaves","160.00"));
+        o3.addItem(new Item("2", "Coffee","105.00"));
+        o3.addItem(new Item("3", "Rice","40.00"));
+        o3.addItem(new Item("4", "Potato","80.00"));
+        addOrder(o3, 4);
+    }
+
+    public static void clearRepository(){
+        DataRepository dataRepository = DataRepository.getDataRepository();
+        orderList.clear();
+        lastItem.clear();
+        lastOrder = 0;
+    }
+
+    public static int getLastOrder(){
+        return lastOrder;
+    }
+
+    public static int getLastItemId(String order_id){
+        return lastItem.get(order_id);
+    }
+
+    public static void seedusers(){
+        userList = new ArrayList<User>();
+        userList.add(new User("u01", "0AD28F73D534E4CF3941A477375D1D75", "E3A6B8B322FD02D0A5172256ECED4301"));
+    }
+
+    public static ArrayList<User> getUserList(){
+        if(userList == null){
+            seedusers();
+        }
+        return userList;
+    }
+
 }

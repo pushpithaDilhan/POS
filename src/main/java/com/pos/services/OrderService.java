@@ -31,8 +31,8 @@ public class OrderService {
         DataRepository.getDataRepository().deleteItem(order_id, item_id);
     }
 
-    public void addOrder(Order order){
-        DataRepository.getDataRepository().addOrder(order);
+    public void addOrder(Order order, int last_item){
+        DataRepository.getDataRepository().addOrder(order, last_item);
     }
 
     public void addItemtoOrder(String order_id, String item_name, String item_price){

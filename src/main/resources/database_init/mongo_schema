@@ -1,0 +1,23 @@
+user {
+    user_id
+    username
+    password
+}
+
+order {
+    user_id
+    order_id
+    order_total
+    item [
+        {
+            item_id
+            quantity
+        }
+    ]
+}
+
+item {
+    item_id
+    item_name
+    item_price
+}

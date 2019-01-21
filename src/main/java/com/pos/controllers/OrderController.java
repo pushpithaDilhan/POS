@@ -30,8 +30,8 @@ public class OrderController {
     @RequestMapping(value = "/orderlist", method = RequestMethod.POST) // return 200 after post
     @ResponseStatus(value = HttpStatus.OK)
     public void addOrder(){
-        String orderID = Integer.toString(OrderService.getOrderService().getLastOrderID() + 1);
-        OrderService.getOrderService().addOrder(new Order(orderID));
+        int orderID = OrderService.getOrderService().getLastOrderID() + 1;
+        OrderService.getOrderService().addOrder(new Order(Integer.toString(orderID)), orderID);
     }
 
     // Add item to a list
