@@ -55,4 +55,12 @@ public class OrderController {
         OrderService.getOrderService().deleteSpecificItem(order_id, item_id);
     }
 
+    // Update item of a list
+    @RequestMapping(value = "/orderlist/{order_id}/{item_id}", method = RequestMethod.PUT) // return 200 after post
+    @ResponseStatus(value = HttpStatus.OK)
+    public void changeIteminOrder(@PathVariable String order_id, @PathVariable String item_id, @RequestParam("item_name") String item_name, @RequestParam("item_price") String item_price){
+        OrderService.getOrderService().deleteSpecificItem(order_id, item_id);
+        OrderService.getOrderService().addItemtoOrder(order_id, item_name, item_price);
+    }
+
 }
