@@ -1,0 +1,77 @@
+[
+    {
+      "item_id": "1",
+      "item_name": "Chicken Pizza",
+      "item_price": "975.00"
+    },
+    {
+      "item_id": "2",
+      "item_name": "Hot chillie chicken Pizza",
+      "item_price": "980.00"
+    },
+    {
+      "item_id": "3",
+      "item_name": "Chicken Burger",
+      "item_price": "400.00"
+    },
+    {
+      "item_id": "4",
+      "item_name": "Beef Burger",
+      "item_price": "380.00"
+    },
+    {
+      "item_id": "5",
+      "item_name": "Mix Fried Rice",
+      "item_price": "300.00"
+    },
+    {
+      "item_id": "6",
+      "item_name": "Chicken Rice and Curry",
+      "item_price": "250"
+    },
+    {
+      "item_id": "7",
+      "item_name": "Prawns Rice and Curry",
+      "item_price": "250.00"
+    },
+    {
+      "item_id": "8",
+      "item_name": "Vegetable Rice and Curry",
+      "item_price": "180.00"
+    },
+    {
+      "item_id": "9",
+      "item_name": "Fish Fried Rice",
+      "item_price": "200.00"
+    },
+    {
+      "item_id": "10",
+      "item_name": "Chicken Biryani",
+      "item_price": "300.00"
+    },
+    {
+      "item_id": "11",
+      "item_name": "Fish Curry",
+      "item_price": "100.00"
+    },
+    {
+      "item_id": "12",
+      "item_name": "Noodles with Chicken",
+      "item_price": "250.00"
+    },
+    {
+      "item_id": "13",
+      "item_name": "Noodles with Fish",
+      "item_price": "250.00"
+    },
+    {
+      "item_id": "14",
+      "item_name": "Noodles with Prawns",
+      "item_price": "250.00"
+    },
+    {
+      "item_id": "15",
+      "item_name": "Fish burger",
+      "item_price": "300.00"
+    }
+]
