@@ -44,7 +44,7 @@ public class OrderTest {
 
     @Test
     public void testGetItemsOfOrder(){
-        Response response = RestAssured.get("http://localhost:8080/orderlist/1");
+        Response response = RestAssured.get("http://localhost:8080/order/1");
         int status = response.getStatusCode();
         List<HashMap<String, Object>> itemlist = response.jsonPath().getList("itemlist");
         Assert.assertEquals(status, 200);
@@ -53,6 +53,24 @@ public class OrderTest {
         Assert.assertEquals(itemlist.get(2).get("item_name"), "Soda");
         Assert.assertEquals(itemlist.get(3).get("item_name"), "Beans");
         Assert.assertEquals(itemlist.get(4).get("item_name"), "Carrot");
+    }
+
+    @Test
+    public void testAddItem(){
+        RestAssured.given()
+                .queryParam("item_name", "Pizza")
+                .queryParam("item_price", "595.00")
+                .when()
+                .post("http://localhost:8080/order/1")
+                .then()
+                .assertThat()
+                .statusCode(200);
+        Response response = RestAssured.get("http://localhost:8080/order/1");
+        int status = response.getStatusCode();
+        Assert.assertEquals(status, 200);
+        List<HashMap<String, Object>> itemlist = response.jsonPath().getList("itemlist");
+        Assert.assertEquals(itemlist.get(5).get("item_name"), "Pizza");
+        Assert.assertEquals(itemlist.get(5).get("item_price"), "595.00");
     }
 
 }
