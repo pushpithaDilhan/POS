@@ -2,7 +2,7 @@ package com.pos.services;
 
 import com.pos.models.Order;
 import com.pos.util.DataRepository;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OrderService {
 
@@ -15,8 +15,8 @@ public class OrderService {
         return orderService;
     }
 
-    public ArrayList<Order> getOrderList(){
-        return DataRepository.getOrderList();
+    public HashMap<String, String> getOrders(){
+        return DataRepository.getDataRepository().getOrders();
     }
 
     public Order getSpecificOrder(String order_id){

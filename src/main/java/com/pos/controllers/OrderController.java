@@ -5,18 +5,17 @@ import com.pos.services.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping(value = "/")
 public class OrderController {
 
-    // Get orders with items
-    @RequestMapping(value = "/orderlist", method = RequestMethod.GET)
+    // Get order details
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @ResponseBody
-    public ArrayList<Order> showorders(){
-        return OrderService.getOrderService().getOrderList();
+    public HashMap<String, String> getOrders(){
+        return OrderService.getOrderService().getOrders();
     }
 
     // Get list of items in a order

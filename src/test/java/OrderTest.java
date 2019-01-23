@@ -2,6 +2,7 @@ import com.pos.models.Item;
 import com.pos.models.Order;
 import com.pos.util.DataRepository;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import junit.framework.Assert;
 import org.junit.Before;
@@ -22,13 +23,30 @@ public class OrderTest {
         testorder1.addItem(new Item("4", "Beans","80.00"));
         testorder1.addItem(new Item("5", "Carrot","75.00"));
         DataRepository.addOrder(testorder1, 5);
+
+        Order testorder2  = new Order(Integer.toString(DataRepository.getLastOrder()));
+        testorder2.addItem(new Item("1", "Soya","45.00"));
+        testorder2.addItem(new Item("2", "Chicken","750.00"));
+        testorder2.addItem(new Item("3", "Butter","190.00"));
+        testorder2.addItem(new Item("4", "Soda","40.00"));
+        DataRepository.addOrder(testorder2, 4);
     }
 
     @Test
     public void testGetOrdersWithItems(){
-        Response response = RestAssured.get("http://localhost:8080/orderlist/");
+        Response response = RestAssured.get("http://localhost:8080/orders/");
         int status = response.getStatusCode();
         Assert.assertEquals(status, 200);
+    }
+
+    @Test
+    public void testGetOrders(){
+        Response response = RestAssured.get("http://localhost:8080/orders/");
+        JsonPath resp = response.jsonPath();
+        int status = response.getStatusCode();
+        Assert.assertEquals(status, 200);
+        Assert.assertEquals(resp.get("1").toString(), "460.0");
+        Assert.assertEquals(resp.get("2").toString(), "1145.0");
     }
 
     @Test

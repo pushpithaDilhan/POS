@@ -52,6 +52,14 @@ public class DataRepository {
         return null;
     }
 
+    public static HashMap<String, String> getOrders(){
+        HashMap<String, String> output = new HashMap<>();
+        for (Order order: orderList) {
+            output.put(order.getOrder_id(),Double.toString(order.getOrder_total()));
+        }
+        return output;
+    }
+
     // Delete order
     public static void deleteOrder(String order_id){
         for(int i = 0; i< orderList.size(); i++){
