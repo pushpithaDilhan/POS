@@ -33,13 +33,6 @@ public class OrderTest {
     }
 
     @Test
-    public void testGetOrdersWithItems(){
-        Response response = RestAssured.get("http://localhost:8080/orders/");
-        int status = response.getStatusCode();
-        Assert.assertEquals(status, 200);
-    }
-
-    @Test
     public void testGetOrders(){
         Response response = RestAssured.get("http://localhost:8080/orders/");
         JsonPath resp = response.jsonPath();

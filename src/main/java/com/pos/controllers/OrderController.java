@@ -19,14 +19,14 @@ public class OrderController {
     }
 
     // Get list of items in a order
-    @RequestMapping(value = "/orderlist/{order_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/order/{order_id}", method = RequestMethod.GET)
     @ResponseBody
     public Order showSpecificOrders(@PathVariable String order_id){
         return OrderService.getOrderService().getSpecificOrder(order_id);
     }
 
     // Create a new order
-    @RequestMapping(value = "/orderlist", method = RequestMethod.POST) // return 200 after post
+    @RequestMapping(value = "/order", method = RequestMethod.POST) // return 200 after post
     @ResponseStatus(value = HttpStatus.OK)
     public void addOrder(){
         int orderID = OrderService.getOrderService().getLastOrderID() + 1;
@@ -34,28 +34,28 @@ public class OrderController {
     }
 
     // Add item to a list
-    @RequestMapping(value = "/orderlist/{order_id}", method = RequestMethod.POST) // return 200 after post
+    @RequestMapping(value = "/order/{order_id}", method = RequestMethod.POST) // return 200 after post
     @ResponseStatus(value = HttpStatus.OK)
     public void addItemtoOrder(@PathVariable String order_id, @RequestParam("item_name") String item_name, @RequestParam("item_price") String item_price){
         OrderService.getOrderService().addItemtoOrder(order_id, item_name, item_price);
     }
 
     // Delete order
-    @RequestMapping(value = "/orderlist/{order_id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/order/{order_id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deletepecificOrders(@PathVariable String order_id){
         OrderService.getOrderService().deleteSpecificOrder(order_id);
     }
 
     // Delete item from an order
-    @RequestMapping(value = "/orderlist/{order_id}/{item_id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/order/{order_id}/{item_id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deletepecificItem(@PathVariable String order_id, @PathVariable String item_id){
         OrderService.getOrderService().deleteSpecificItem(order_id, item_id);
     }
 
     // Update item of a list
-    @RequestMapping(value = "/orderlist/{order_id}/{item_id}", method = RequestMethod.PUT) // return 200 after post
+    @RequestMapping(value = "/order/{order_id}/{item_id}", method = RequestMethod.PUT) // return 200 after post
     @ResponseStatus(value = HttpStatus.OK)
     public void changeIteminOrder(@PathVariable String order_id, @PathVariable String item_id, @RequestParam("item_name") String item_name, @RequestParam("item_price") String item_price){
         OrderService.getOrderService().deleteSpecificItem(order_id, item_id);
