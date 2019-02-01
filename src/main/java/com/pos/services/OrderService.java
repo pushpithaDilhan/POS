@@ -1,8 +1,10 @@
 package com.pos.services;
 
-import com.pos.models.Order;
-import com.pos.util.DataRepository;
+import com.pos.util.DatabaseAccess;
+import org.json.JSONObject;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 public class OrderService {
 
@@ -15,32 +17,31 @@ public class OrderService {
         return orderService;
     }
 
-    public HashMap<String, String> getOrders(){
-        return DataRepository.getDataRepository().getOrders();
+    public List<HashMap<String, String>> getOrders(String user_id) throws SQLException {
+        return DatabaseAccess.getDatabaseAccess().getOrderList(user_id);
     }
 
-    public Order getSpecificOrder(String order_id){
-        return DataRepository.getDataRepository().getOrder(order_id);
+    public JSONObject getItems(String user_id, int order_id) throws SQLException {
+        return DatabaseAccess.getDatabaseAccess().getItems(user_id, order_id);
     }
 
-    public void deleteSpecificOrder(String order_id){
-        DataRepository.getDataRepository().deleteOrder(order_id);
+    public void addOrder(String user_id) throws SQLException {
+        DatabaseAccess.getDatabaseAccess().addOrder(user_id);
     }
 
-    public void deleteSpecificItem(String order_id, String item_id){
-        DataRepository.getDataRepository().deleteItem(order_id, item_id);
+    public void addItemtoOrder(String user_id, int order_id, int item_id, int quantity) throws SQLException {
+        DatabaseAccess.getDatabaseAccess().addItemtoOrder(user_id, order_id, item_id, quantity);
     }
 
-    public void addOrder(Order order, int last_item){
-        DataRepository.getDataRepository().addOrder(order, last_item);
+    public void deleteSpecificOrder(String user_id, int order_id) throws SQLException {
+        DatabaseAccess.getDatabaseAccess().deleteOrder(user_id, order_id);
     }
 
-    public void addItemtoOrder(String order_id, String item_name, String item_price){
-        DataRepository.getDataRepository().addItemtoOrder(order_id, item_name, item_price);
+    public void deleteSpecificItem(String user_id, int order_id, int item_id) throws SQLException {
+        DatabaseAccess.getDatabaseAccess().deleteItemFromOrder(user_id, order_id, item_id);
     }
 
-    public int getLastOrderID(){
-        return DataRepository.getDataRepository().getLastOrder();
+    public void updateItemCount(String user_id, int order_id, int item_id, int new_quantity) throws SQLException {
+        DatabaseAccess.getDatabaseAccess().updateItemCount(user_id, order_id, item_id, new_quantity);
     }
-
 }

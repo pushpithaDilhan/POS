@@ -1,8 +1,8 @@
 package com.pos.services;
 
-import com.pos.models.User;
-import com.pos.util.DataRepository;
-import java.util.ArrayList;
+import com.pos.util.DatabaseAccess;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 public class UserLoginService {
     private static UserLoginService userLoginService;
@@ -17,14 +17,11 @@ public class UserLoginService {
         return userLoginService;
     }
 
-    public String userAuthentication(String username, String password){
-        ArrayList<User> users = DataRepository.getUserList();
-        System.out.println(users);
-        for (User user: users) {
-            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
-                return user.getUser_id();
-            }
-        }
-        return "unauthorized";
+    public String userAuthentication(String username, String password) throws SQLException, NoSuchAlgorithmException {
+        return DatabaseAccess.getDatabaseAccess().Login(username, password);
+    }
+
+    public String userAuthorization(String cookie) throws SQLException {
+        return DatabaseAccess.getDatabaseAccess().Authorize(cookie);
     }
 }
