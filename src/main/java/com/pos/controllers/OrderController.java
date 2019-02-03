@@ -5,8 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
 
 @CrossOrigin
 @Controller
@@ -19,7 +17,7 @@ public class OrderController {
     // Get order details
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @ResponseBody
-    public List<HashMap<String, String>> getOrders() throws SQLException {
+    public String getOrders() throws SQLException {
         return OrderService.getOrderService().getOrders(user_id);
     }
 

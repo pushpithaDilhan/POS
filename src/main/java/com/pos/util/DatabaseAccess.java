@@ -8,8 +8,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class DatabaseAccess {
@@ -39,20 +37,20 @@ public class DatabaseAccess {
         return connection;
     }
 
-    public List<HashMap<String, String>> getOrderList(String user_id) throws SQLException {
+    public JSONObject getOrderList(String user_id) throws SQLException {
         String sql = "SELECT * FROM pos.userorders WHERE user_id = ?";
         PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
         preparedStatement.setString(1, user_id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        List<HashMap<String, String>> output = new ArrayList<HashMap<String, String>>();
+        JSONObject output = new JSONObject();
+        ArrayList<JSONObject> orders = new ArrayList<>();
         while (resultSet.next()) {
-            String order_id = resultSet.getString("order_id");
-            String order_total = resultSet.getString("order_total");
-            HashMap<String, String> record = new HashMap<String, String>();
-            record.put("order_number", order_id);
-            record.put("order_amount", order_total);
-            output.add(record);
+            JSONObject order = new JSONObject();
+            order.put("order_id",resultSet.getString("order_id"));
+            order.put("order_total",resultSet.getString("order_total"));
+            orders.add(order);
         }
+        output.put("orders",orders);
         return output;
     }
 
@@ -146,6 +144,7 @@ public class DatabaseAccess {
         preparedStatement.setDouble(4, quantity);
         preparedStatement.executeUpdate();
         // adjust order total
+        UpdateTotal(user_id, order_id);
     }
 
     public void deleteOrder(String user_id, int order_id) throws SQLException {
@@ -164,6 +163,7 @@ public class DatabaseAccess {
         preparedStatement.setInt(3, item_id);
         preparedStatement.executeUpdate();
         // adjust order_total - edit the relevant row of userorders
+        UpdateTotal(user_id, order_id);
     }
 
     public void updateItemCount(String user_id, int order_id, int item_id, int new_quantity) throws SQLException {
@@ -175,5 +175,33 @@ public class DatabaseAccess {
         preparedStatement.setInt(4, item_id);
         preparedStatement.executeUpdate();
         // adjust order_total
+        UpdateTotal(user_id, order_id);
     }
+
+    public void UpdateTotal(String user_id, int order_id) throws SQLException {
+        // get the total from useritems table
+        String total_sql = "SELECT SUM(quantity*item_price) FROM pos.useritems JOIN pos.items ON useritems.item_id = items.item_id WHERE user_id = ? AND order_id = ?";
+        PreparedStatement preparedStatement = getConnection().prepareStatement(total_sql);
+        preparedStatement.setString(1, user_id);
+        preparedStatement.setInt(2, order_id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.first();
+        double sum = resultSet.getDouble(1);
+
+        // update the total in userorders
+        String update_sql = "UPDATE pos.userorders SET order_total = ? WHERE user_id = ? AND order_id = ?";
+        PreparedStatement update_preparedStatement = getConnection().prepareStatement(update_sql);
+        update_preparedStatement.setDouble(1, sum);
+        update_preparedStatement.setString(2, user_id);
+        update_preparedStatement.setInt(3, order_id);
+        update_preparedStatement.executeUpdate();
+    }
+
+    // Clear db records
+    public void clearDB(String tablename) throws SQLException {
+        String sql = "DELETE FROM " + tablename;
+        PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+        preparedStatement.executeUpdate();
+    }
+
 }

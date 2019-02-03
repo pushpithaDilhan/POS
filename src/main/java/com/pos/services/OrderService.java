@@ -3,8 +3,6 @@ package com.pos.services;
 import com.pos.util.DatabaseAccess;
 import org.json.JSONObject;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
 
 public class OrderService {
 
@@ -17,8 +15,8 @@ public class OrderService {
         return orderService;
     }
 
-    public List<HashMap<String, String>> getOrders(String user_id) throws SQLException {
-        return DatabaseAccess.getDatabaseAccess().getOrderList(user_id);
+    public String getOrders(String user_id) throws SQLException {
+        return DatabaseAccess.getDatabaseAccess().getOrderList(user_id).toString();
     }
 
     public JSONObject getItems(String user_id, int order_id) throws SQLException {
