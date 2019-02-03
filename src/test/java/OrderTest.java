@@ -20,7 +20,6 @@ public class OrderTest {
         DatabaseAccess.getDatabaseAccess().addItemtoOrder("u01",1,3,2);
     }
 
-
     @Test
     public void testGetOrders(){
         Response response = RestAssured.get("http://localhost:8080/orders/");
